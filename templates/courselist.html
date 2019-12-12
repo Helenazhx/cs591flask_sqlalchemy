@@ -1,0 +1,19 @@
+<html>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<body >
+   <h1>Courses List</h1>
+   <a  href="{{url_for('newClass')}}">
+       <button>Add Course</button>
+   </a>
+   <ol>
+       {% for class in Courses %}
+       <li> {{class.cname}} </li>
+       <a href="{{url_for('showClass', class_id = class.id )}}">
+            {{class.cname}}
+       </a>
+       <br> <br>
+       {% endfor %}
+   </ol>
+</body>
+</html>

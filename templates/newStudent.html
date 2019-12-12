@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<body>
+    <div class="main">
+        <p class="sign" align="center">Add a new student</p>
+            <form class="form_adds" method="POST">
+              <input class="un " type="text" align="center" placeholder="Student Name">
+              <input class="un" type="password" align="center" placeholder="Student ID">
+              <input class="un" type="password" align="center" placeholder="Student Email">
+              <a class="add" href="{{url_for('addStudent')}}" align="center">Add</a>
+              <!--<a href="{{url_for('showBooks')}}">
+                   <button>Cancel</button>
+               </a>-->
+            </form>
+    </div>
+</body>

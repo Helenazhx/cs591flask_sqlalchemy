@@ -1,0 +1,46 @@
+<html>
+    <link rel="stylesheet" href="css/styles.css">
+    {% block page_content %}
+    <div class="table100 ver1 m-b-110">
+        <div class="table100-head">
+                <table>
+                    <thead>
+                        <tr class="row100 head">
+                            <th class="column1">Student Name</th>
+                            <th class="column2">Student Email</th>
+                            <th class="column3">ClassName</th>
+                            <th class="column4">Grade</th>
+                            <th class="column5">Edit</th>
+                            <th class="column6">Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+        </div>
+        <div class="table100-body js-pscroll">
+            <table  class="table table-bordered">
+                <tbody>
+                {% for i in u %}
+                    <tr class="row100 body">
+                        <td class="column1">{{ i[0] }}</td>
+                        <td class="column2">{{ i[1] }}</td>
+                        <td class="column3">{{ i[2] }}</td>
+                        <td class="column4">{{ i[3] }}</td>
+                        <td class="column5"><a href="{{url_for('editBook', book_id = book.id )}}">
+                            Edit
+                        </a></td>
+                        <td class="column6"><a href="{{url_for('deleteBook', book_id = book.id )}}" style="margin-left: 10px;">
+                            Delete
+                        </a></td> 
+                    </tr>
+                
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a  href="{{url_for('newStudent', course_id = course.id)}}">
+            <button>Add student</button>
+        </a>
+    </div>
+    {% endblock %}
+
+</html>

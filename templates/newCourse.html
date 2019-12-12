@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<body>
+        <div class="main">
+            <p class="sign" align="center">Add a Course</p>
+                <form class="form_addc" method="POST">
+                  <input class="un " type="text" align="center" name="cname" placeholder="Name of the course">
+                  <input class="un" type="text" align="center" name="ccode" placeholder="Code of the course">
+                  <input class="un" type="text" align="center" name="climit" placeholder="Max seat number">
+                  <a class="add" href="{{url_for('addCourse')}}" align="center">Create</a>
+                </form>
+        </div>
+    </body>
