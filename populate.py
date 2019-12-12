@@ -18,6 +18,9 @@ def login():
     if request.method == 'POST':
         if request.form["user"] =="kin" and request.form["pw"] == "cs591":
             return redirect(url_for('showCourseList'))
+        else:
+            print("Wrong combination")
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
@@ -29,10 +32,13 @@ def showCourseList():
 @app.route('/courses/new/',methods=['GET','POST'])
 def newCourse():
     if request.method == 'POST':
-        newCourse = Courses(cname = request.form['cname'], code = request.form['ccode'], seat = request.form['climit'])
-        session.add(newCourse)
-        session.commit()
-        return redirect(url_for('showCourseList'))
+        if request.form['cname'] != "" and request.form['ccode'] != "" and request.form['climit'] !="":
+            newCourse = Courses(cname = request.form['cname'], code = request.form['ccode'], seat = request.form['climit'])
+            session.add(newCourse)
+            session.commit()
+            return redirect(url_for('showCourseList'))
+        else:
+            return redirect(url_for('showCourseList'))
     else:
         return render_template('newCourse.html')
 

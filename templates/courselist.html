@@ -7,15 +7,17 @@
        <button>Add Course</button>
     </a>
     <!--need to modify-->
-   <ul>
-       {% for class in courses %}
-       <li> 
-            <a href="{{url_for('showCourseDetail', course_name = class.cname)}}">
-                    {{class.cname}}
-            </a>
-            <br> <br>
-        </li>
-       {% endfor %}
-   </ul>
+    <br><br>
+    <table>
+        {% for class in courses %}
+        <tr>
+            <td><a href="{{url_for('showCourseDetail', course_name = class.cname)}}">
+                {{class.code}}:  {{class.cname}}</a>
+                <br><br>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+   
 </body>
 </html>
