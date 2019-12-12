@@ -5,14 +5,48 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dbsetup import Base,Courses,Students,StudentCourse,Grade_record
 
-engine = create_engine('sqlite:///test.db', echo=True)
+engine = create_engine('sqlite:///gs-collection.db',connect_args={'check_same_thread': False},  echo=True)
 Base.metadata.bind=engine
 DBSession=sessionmaker(bind=engine)
 session=DBSession()
+@app.route('/')
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        if request.form["user"] =="kin" and request.form["pw"] == "cs591":
+            return redirect(url_for('showCourseList'))
+        else:
+            print("Wrong combination")
+            return render_template('login.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/courses/')
+def showCourseList():
+    courses = session.query(Courses).all()
+    return render_template("courselist.html", courses =courses)
+
+@app.route('/courses/new/',methods=['GET','POST'])
+def newCourse():
+    if request.method == 'POST':
+        if request.form['cname'] != "" and request.form['ccode'] != "" and request.form['climit'] !="":
+            newCourse = Courses(cname = request.form['cname'], code = request.form['ccode'], seat = request.form['climit'])
+            session.add(newCourse)
+            session.commit()
+            return redirect(url_for('showCourseList'))
+        else:
+            return redirect(url_for('showCourseList'))
+    else:
+        return render_template('newCourse.html')
+
+@app.route('/courses/grades/<course_name>',methods=['GET','POST'])
+def showCourseDetail(course_name):
+    entry = session.query(Grade_record).filter_by(cname =course_name).all()
+    return render_template("classinfo.html", u =entry)
 
 
 # Create a new student and commit the changes in the database
-@app.route('/<string:cname>/new/', methods=['GET', 'POST'])
+@app.route('/<cname>/new/', methods=['GET', 'POST'])
 def newStudent(cname):
     if request.method == 'POST':
         # student table change
