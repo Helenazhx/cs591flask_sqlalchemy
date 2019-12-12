@@ -1,0 +1,22 @@
+<html>
+
+<head>
+  <link href="{{url_for('static',filename='style.css')}}" rel="stylesheet" type="text/css"/> 
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in</title>
+</head>
+
+<body>
+  <div class="main">
+    <p class="sign" align="center">Sign in</p>
+    <form class="form_login" action="{{ url_for('login')}}" method="post">
+      <input class="un " name ="user" type="text" align="center" placeholder="Username">
+      <input class="pass" name ="pw" type="password" align="center" placeholder="Password">
+      <a class="submit" href="{{url_for('showCourseList')}}" align="center">Sign in</a>
+       </form>
+    </div>
+     
+</body>
+
+</html>

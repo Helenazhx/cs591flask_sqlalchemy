@@ -1,23 +1,31 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-#Let’s import our Book and Base classes from our database_setup.py file
-from db_setup import Book, Base
+from flask import Flask, render_template, request, redirect, url_for
+app = Flask(__name__)
 
-engine = create_engine('sqlite:///books-collection.db')
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker,scoped_session
+from dbsetup import Courses,Students,StudentCourse, Grade_record,Base
+
+engine = create_engine('sqlite:///:memory:',connect_args={'check_same_thread': False},  echo=True)
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
-
 DBSession = sessionmaker(bind=engine)
-# A DBSession() instance establishes all conversations with the database
-# and represents a "staging zone" for all the objects loaded into the
-# database session object.
 session = DBSession()
-bookOne = Book(title="The Bell Jar", author="Sylvia Pla", genre="roman à clef")
-session.add(bookOne)
-session.commit()
-editedBook = session.query(Book).filter_by(id=1).one()
-editedBook.author = "Sylvia Plath"
-session.add(editedBook)
-session.commit()
-Base.metadata.create_all(engine)
+
+@app.route('/')
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        if request.form["user"] =="kin" and request.form["pw"] == "cs591":
+            return redirect(url_for('showCourseList'))
+    else:
+        return render_template('login.html')
+        
+@app.route('/courses')
+def showCourseList():
+    courses = session.query(Courses).all()
+    return render_template("courselist.html", courses =courses)
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port=4966)
