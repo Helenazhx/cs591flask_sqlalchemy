@@ -1,6 +1,5 @@
 <html>
         <link href="{{url_for('static',filename='styles.css')}}" rel="stylesheet" type="text/css"/> 
-    {% block page_content %}
     <div class="table100 ver1 m-b-110">
         <div class="table100-head">
                 <table>
@@ -25,10 +24,10 @@
                         <td class="column2">{{ i[1] }}</td>
                         <td class="column3">{{ i[2] }}</td>
                         <td class="column4">{{ i[3] }}</td>
-                        <td class="column5"><a href="{{url_for('editBook', book_id = book.id )}}">
+                        <td class="column5"><a >
                             Edit
                         </a></td>
-                        <td class="column6"><a href="{{url_for('deleteBook', book_id = book.id )}}" style="margin-left: 10px;">
+                        <td class="column6"><a  style="margin-left: 10px;">
                             Delete
                         </a></td> 
                     </tr>
@@ -37,10 +36,9 @@
                 </tbody>
             </table>
         </div>
-        <a  href="{{url_for('newStudent', course_id = course.id)}}">
+        <a  >
             <button>Add student</button>
         </a>
     </div>
-    {% endblock %}
 
 </html>

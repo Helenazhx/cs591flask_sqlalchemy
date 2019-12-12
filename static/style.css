@@ -72,22 +72,6 @@ font-family: 'Ubuntu', sans-serif;
     border: 2px solid rgba(0, 0, 0, 0.18) !important;
     
 }
-
-.submit {
-  cursor: pointer;
-    border-radius: 5em;
-    color: #fff;
-    background: linear-gradient(to right, #9C27B0, #E040FB);
-    border: 0;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-family: 'Ubuntu', sans-serif;
-    margin-left: 35%;
-    font-size: 13px;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-}
 .add {
     cursor: pointer;
       border-radius: 5em;
@@ -140,7 +124,11 @@ table {
     display: inline-block;
     font-size: 16px;
     margin-top: 20px;
+    margin-left: 50%;
+    align-content: center;
+    border-radius: 5em;
 }
+
 
 @media (max-width: 600px) {
     .main {

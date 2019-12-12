@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship,validates
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
-engine = create_engine('sqlite:///:memory:', echo=True)
+engine = create_engine('sqlite:///gs-collection.db')
 
 class Courses(Base):
     __tablename__='courses'
