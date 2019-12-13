@@ -1,0 +1,15 @@
+<link href="{{url_for('static',filename='style.css')}}" rel="stylesheet" type="text/css"/> 
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<body>
+    <div class="main">
+        <p class="sign" align="center">Edit a student</p>
+            <form class="form_edits" action = "{{url_for('editStudent', sname = student.sname, cname = cname)}}" method="POST">
+              <input class="un " type="text" align="center" name = "sname" value="{{student.sname}}">
+              <input class="un" type="text" align="center" name = "sid" value="{{student.snumber}}">
+              <input class="un" type="text" align="center" name = "semail" value="{{student.smail}}">
+              <input class="un" type="text" align="center" name = "sgrade" value="{{grades.grade}}">
+              <button class="modi">Edit</button>
+              <button class="modi">Cancel</button>
+            </form>
+    </div>
+</body>

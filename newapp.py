@@ -39,75 +39,75 @@ def newCourse():
     else:
         return render_template('newCourse.html')
 
-@app.route('/courses/grades/<course_name>',methods=['GET','POST'])
+@app.route('/courses/<course_name>/')
 def showCourseDetail(course_name):
     entry = session.query(Grade_record).filter_by(cname =course_name).all()
-    return render_template("classinfo.html", u =entry)
+    return render_template("classinfo.html", u = entry, classes = course_name)
 
 
 # Create a new student and commit the changes in the database
-@app.route('/<cname>/new/', methods=['GET', 'POST'])
-def newStudent(cname):
+@app.route('/courses/<course_name>/news/', methods=['GET', 'POST'])
+def newStudent(course_name):
     if request.method == 'POST':
-        # student table change
-        newStudent = Students(sname=request.form['sname'], snumber=request.form['snumber'], smail=request.form['smail'])
-        querytest=session.query(Students).filter_by(sname=request.form['sname']).all()
-        if querytest is not empty:
-            session.add(newStudent)
-        # student_course table change
-        newStudentCourse = StudentCourse(sname=request.form['sname'], cname='cname')
-        session.add(newStudentCourse)
-        # grade_record table change
-        newGradeRecord = GradeRecord(sname=request.form['sname'], cname='cname', grade=request.form['grade'])
-        session.add(newGradeRecord)
-        session.commit()
-        return redirect(url_for('showcourse'))
+        if request.form['sname'] != "" and request.form['sid'] != "" and request.form['semail'] !="":
+            # student table change
+            form_sname = request.form['sname']
+            newStudent = Students(sname=form_sname, snumber=request.form['sid'], smail=request.form['semail'])
+            querytest=session.query(Students).filter_by(sname=form_sname).all()
+            if not querytest:
+                session.add(newStudent)
+            # student_course table change
+            newStudentCourse = StudentCourse(sname=form_sname, cname=course_name)
+            session.add(newStudentCourse)
+            # grade_record table change
+            newGradeRecord = Grade_record(sname=form_sname, cname = course_name, grade=int(request.form['sgrade']))
+            session.add(newGradeRecord)
+            session.commit()
+            return redirect(url_for('showCourseDetail', course_name = course_name))
+        else:
+            return render_template('newStudent.html', course_name = course_name)
     else:
-        return render_template('classinfo.html')
+        return render_template('newStudent.html', course_name = course_name)
 
-@app.route('/<string:cname>/<string:sname>/delete',methods=['GET','POST'])
-def deletestudent(sname,cname):
+@app.route('/courses/<cname>/<sname>/delete',methods=['GET','POST'])
+def deleteStudent(sname,cname):
+    # edit student table
+    editedStudent=session.query(Students).filter_by(sname=sname).one()
     # student_course table change
-    studentcourseToDelete=session.query(StudentCourse).filter(and_(sname=sname,cname=cname)).one()
+    studentcourseToDelete=session.query(StudentCourse).filter_by(sname=sname,cname=cname).one()
     # grade_record table change
-    graderecordToDelete=session.query(Grade_record).filter(and_(sname=sname,cname=cname)).one()
+    graderecordToDelete=session.query(Grade_record).filter_by(sname=sname,cname=cname).one()
     if request.method=='POST':
-        session.delete(studentcourseToDelete)
-        session.delete(graderecordToDelete)
-        session.commit()
-        return redirect(url_for('showcourse'))
+        if request.form["buttons"] == "delete":
+            session.delete(studentcourseToDelete)
+            session.delete(graderecordToDelete)
+            session.commit()
+        return redirect(url_for('showCourseDetail', course_name = cname))
     else:
-        return render_template('deletestudent.html')
+        return render_template('deleteStudent.html',student = editedStudent, grades = graderecordToDelete, cname= cname)
 
-@app.route('/<string:cname>/<string:sname>/edit',methods=['GET','POST'])
-def editstudent(sname,cname):
+@app.route('/courses/<cname>/<sname>/edit',methods=['GET','POST'])
+def editStudent(sname,cname):
     # edit student table
     editedStudent=session.query(Students).filter_by(sname=sname).one()
     # edit studentcourse table
-    editedStudentCourse=session.query(StudentCourse).filter(and_(sname=sname,cname=cname)).one()
+    editedStudentCourse=session.query(StudentCourse).filter_by(sname=sname,cname=cname).one()
     # edit graderecord table
-    editedGradeRecord=session.query(Grade_record).filter(and_(sname=sname,cname=cname)).one()
+    editedGradeRecord=session.query(Grade_record).filter_by(sname=sname,cname=cname).one()
     if request.method=='POST':
-        if sname!=request.form['sname']:
+        if request.form['sname'] or request.form['sid'] or request.form['semail'] or request.form['sgrade']:
             editedStudent.sname=request.form['sname']
-            editedStudent.snumber=request.form['snumber']
-            editedStudent.smail=request.form['smail']
+            editedStudent.snumber=request.form['sid']
+            editedStudent.smail=request.form['semail']
 
             editedStudentCourse.sname=request.form['sname']
 
             editedGradeRecord.sname=request.form['sname']
-            editedGradeRecord.grade=request.form['grade']
+            editedGradeRecord.grade=int(request.form['sgrade'])
             session.commit()
-        elif snumber!=request.form['snumber'] or smail!=request.form['smail']:
-            editedStudent.snumber = request.form['snumber']
-            editedStudent.smail = request.form['smail']
-            session.commit()
-        elif grade!=request.form['grade']:
-            editedGradeRecord.grade=request.form['grade']
-            session.commit()
-        return redirect(url_for('showcourse'))
+        return redirect(url_for('showCourseDetail', course_name = cname))
     else:
-        return render_template('editStudent.html',sname=sname)
+        return render_template('editStudent.html',student = editedStudent, grades = editedGradeRecord, cname= cname)
 
 
 if __name__=='__main__':

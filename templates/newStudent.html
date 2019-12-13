@@ -3,12 +3,12 @@
 <body>
     <div class="main">
         <p class="sign" align="center">Add a new student</p>
-            <form class="form_adds" method="POST">
+            <form class="form_adds" action = "{{url_for('newStudent', course_name = course_name)}}" method="POST">
               <input class="un " type="text" align="center" name = "sname" placeholder="Student Name">
               <input class="un" type="text" align="center" name = "sid" placeholder="Student ID">
               <input class="un" type="text" align="center" name = "semail" placeholder="Student Email">
               <input class="un" type="text" align="center" name = "sgrade" placeholder="Grade">
-              <button type="submit">ADD</button>
+              <button class="submit">ADD</button>
             </form>
     </div>
 </body>

@@ -1,16 +1,14 @@
-<html>
-        <link href="{{url_for('static',filename='styles.css')}}" rel="stylesheet" type="text/css"/> 
-    <div class="table100 ver1 m-b-110">
+<link href="{{url_for('static',filename='styles.css')}}" rel="stylesheet" type="text/css"/> 
+    <div class="table100 ver1 m-b-110" >
         <div class="table100-head">
                 <table>
                     <thead>
                         <tr class="row100 head">
                             <th class="column1">Student Name</th>
-                            <th class="column2">Student Email</th>
-                            <th class="column3">ClassName</th>
-                            <th class="column4">Grade</th>
-                            <th class="column5">Edit</th>
-                            <th class="column6">Delete</th>
+                            <th class="column2">ClassName</th>
+                            <th class="column3">Grade</th>
+                            <th class="column4">Edit</th>
+                            <th class="column5">Delete</th>
                         </tr>
                     </thead>
                 </table>
@@ -20,25 +18,28 @@
                 <tbody>
                 {% for i in u %}
                     <tr class="row100 body">
-                        <td class="column1">{{ i[0] }}</td>
-                        <td class="column2">{{ i[1] }}</td>
-                        <td class="column3">{{ i[2] }}</td>
-                        <td class="column4">{{ i[3] }}</td>
-                        <td class="column5"><a >
-                            Edit
-                        </a></td>
-                        <td class="column6"><a  style="margin-left: 10px;">
+                        <td class="column1">{{ i.sname }}</td>
+                        <td class="column2">{{ i.cname }}</td>
+                        <td class="column3">{{ i.grade }}</td>
+                        <td class="column4">
+                            <a href="{{url_for('editStudent', sname = i.sname, cname = i.cname)}}">
+                                Edit
+                            </a>
+                    </td>
+                        <td class="column5">
+                            <a  href="{{url_for('deleteStudent', sname = i.sname, cname = i.cname)}}">
                             Delete
-                        </a></td> 
+                        </a>
+                    </td> 
                     </tr>
-                
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        <a  href="{{url_for('newStudent'), cname = class.cname}}">
-            <button>Add student</button>
+        <a  href="{{url_for('newStudent', course_name = classes)}}">
+            <button class="detail">Add New Student</button>
+        </a>
+        <a  href="{{url_for('showCourseList')}}">
+            <button  class="detail"> Return to CourseList</button>
         </a>
     </div>
-
-</html>

@@ -2,14 +2,15 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 <body>
     <div class="main">
-        <p class="sign" align="center">Delete a new student</p>
-            <form action="{{ url_for('deleteStudent',book_id = book.id)}}" method="POST">
-              <input class="un " type="text" align="center" name = "sname" placeholder="Student Name">
-              <input class="un" type="text" align="center" name = "sid" placeholder="Student ID">
-              <input class="un" type="text" align="center" name = "semail" placeholder="Student Email">
-              <input class="un" type="text" align="center" name = "sgrade" placeholder="Grade">
-              <button type="submit">Delete</button>
-              <button type="submit">Cancel</button>
+        <p class="sign" align="center">Delete a student</p>
+            <form class="form_edits" action = "{{url_for('deleteStudent', sname = student.sname, cname = cname)}}" method="POST">
+              <input class="un " type="text" align="center" readonly="readonly" value="{{student.sname}}">
+              <input class="un" type="text" align="center" readonly="readonly" value="{{student.snumber}}">
+              <input class="un" type="text" align="center" readonly="readonly" value="{{student.smail}}">
+              <input class="un" type="text" align="center" readonly="readonly" value="{{grades.grade}}">
+              <button class="modi" value="delete" name ="buttons">Delete</button>
+              <button class="modi" name ="buttons" value="cancel">Cancel</button>
+                
             </form>
     </div>
 </body>
