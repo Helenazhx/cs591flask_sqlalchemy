@@ -13,7 +13,7 @@ session=DBSession()
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        if request.form["user"] =="kin" and request.form["pw"] == "cs591":
+        if request.form["user"] =="kinan" and request.form["pw"] == "cs591":
             return redirect(url_for('showCourseList'))
         else:
             print("Wrong combination")
