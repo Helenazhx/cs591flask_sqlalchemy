@@ -7,6 +7,6 @@ How to use:
 4. username: kinan; password: cs591
 
 Ps.
-1. When you first use the web app, the database will be empty and no course in the course list page and no student in the course detail page.So you may need to add some to test the web app to add some new entries.
+1. When you first use the web app, the database will be empty and no course in the course list page and no student in the course detail page.So you may need to add some new entries to test the web app.
 
 2. it's ok for you to resize the web browser
