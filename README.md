@@ -1,5 +1,9 @@
 # cs591flask_sqlalchemy
 
+Packet need to install:
+1. flask $pip install Flask
+2. SQLalchemy  $ pip install sqlalchemy
+
 How to use:
 1. clone to local machine
 2. run newapp.py in your terminal
